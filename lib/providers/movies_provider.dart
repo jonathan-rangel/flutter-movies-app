@@ -11,6 +11,7 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> popularMovies = [];
 
   int _popularPage = 0;
+  int _playingMovies = 0;
 
   MoviesProvider() {
     getOnPlayingMovies();
@@ -27,7 +28,8 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getOnPlayingMovies() async {
-    final jsonData = await _getJsonData('3/movie/now_playing', 1);
+    _playingMovies++;
+    final jsonData = await _getJsonData('3/movie/now_playing', _playingMovies);
 
     final nowPlayingResponse = NowPlayingResponse.fromRawJson(jsonData);
     onDisplayMovies = nowPlayingResponse.results;
