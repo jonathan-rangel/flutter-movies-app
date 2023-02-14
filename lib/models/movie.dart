@@ -33,9 +33,16 @@ class Movie {
   double voteAverage;
   int voteCount;
 
-  get fullPosterImg {
+  String get fullPosterImg {
     if (posterPath != null) {
       return 'https://image.tmdb.org/t/p/w500$posterPath';
+    }
+    return 'https://i.stack.imgur.com/GNhxO.png';
+  }
+
+  String get fullBackdropImg {
+    if (backdropPath != null) {
+      return 'https://image.tmdb.org/t/p/w500$backdropPath';
     }
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
@@ -49,8 +56,7 @@ class Movie {
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        originalLanguage:
-            originalLanguageValues.map[json["original_language"]],
+        originalLanguage: originalLanguageValues.map[json["original_language"]],
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
