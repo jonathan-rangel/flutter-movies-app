@@ -18,7 +18,6 @@ class _MovieSliderState extends State<MovieSlider> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
@@ -30,7 +29,6 @@ class _MovieSliderState extends State<MovieSlider> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -38,7 +36,7 @@ class _MovieSliderState extends State<MovieSlider> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 260,
+      height: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

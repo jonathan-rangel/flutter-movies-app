@@ -19,17 +19,17 @@ class CastingCards extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          final cast = snapshot.data;
+          final cast = snapshot.data!;
 
           return Container(
             margin: const EdgeInsets.only(bottom: 30),
             width: double.infinity,
-            height: 180,
+            height: 200,
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: cast.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index) => _CastCard(
-                actor: cast![index],
+                actor: cast[index],
               ),
             ),
           );
