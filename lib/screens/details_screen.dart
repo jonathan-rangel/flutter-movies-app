@@ -9,27 +9,32 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _CustomAppBar(
-            movieTitle: movie.title,
-            movieFullBackdropImg: movie.fullBackdropImg,
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            _PosterAndTitle(
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            _CustomAppBar(
               movieTitle: movie.title,
-              movieFullPosterImg: movie.fullPosterImg,
-              movieOriginalTitle: movie.originalTitle,
-              movieVoteAverage: movie.voteAverage,
+              movieFullBackdropImg: movie.fullBackdropImg,
             ),
-            _Overview(
-              movieOverview: movie.overview,
-            ),
-            CastingCards(movieId: movie.id,),
-          ]))
-        ],
+            SliverList(
+                delegate: SliverChildListDelegate([
+              _PosterAndTitle(
+                movieId: movie.heroId!,
+                movieTitle: movie.title,
+                movieFullPosterImg: movie.fullPosterImg,
+                movieOriginalTitle: movie.originalTitle,
+                movieVoteAverage: movie.voteAverage,
+              ),
+              _Overview(
+                movieOverview: movie.overview,
+              ),
+              CastingCards(
+                movieId: movie.id,
+              ),
+            ]))
+          ],
+        ),
       ),
     );
   }
@@ -65,6 +70,7 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
+  final String movieId;
   final String movieTitle;
   final String movieFullPosterImg;
   final String movieOriginalTitle;
@@ -74,7 +80,8 @@ class _PosterAndTitle extends StatelessWidget {
       {required this.movieTitle,
       required this.movieFullPosterImg,
       required this.movieOriginalTitle,
-      required this.movieVoteAverage});
+      required this.movieVoteAverage,
+      required this.movieId});
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +92,15 @@ class _PosterAndTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/no-image.jpg'),
-              image: NetworkImage(movieFullPosterImg),
-              height: 150,
+          Hero(
+            tag: movieId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(movieFullPosterImg),
+                height: 150,
+              ),
             ),
           ),
           const SizedBox(width: 20),
